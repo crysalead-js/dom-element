@@ -32,14 +32,29 @@ describe(".attr()", function() {
 
 });
 
-describe(".removeAttr()", function() {
+describe(".attrNS()", function() {
 
-  it("removes an attribute", function() {
+  it("sets/gets a value", function() {
 
-    var link = domify('<a href="/url"></a>');
+    var ns = "http://www.w3.org/1999/xlink";
+    var xlink = domify("<img></img>");
+    domElement.attrNS(xlink, ns, "href", "/url");
 
-    domElement.removeAttr(link, "href");
-    expect(link.getAttribute("href")).toBeFalsy();
+    expect(xlink.getAttributeNS(ns, "href")).toBe("/url");
+    expect(domElement.attrNS(xlink, ns, "href")).toBe("/url");
+
+  });
+
+  it("removes an attribute using undefined as value", function() {
+
+    var ns = "http://www.w3.org/1999/xlink";
+    var xlink = domify("<img></img>");
+    xlink.setAttributeNS(ns, "href", "/url");
+
+    expect(domElement.attrNS(xlink, ns, "href")).toBe("/url");
+
+    domElement.attrNS(xlink, ns, "href", undefined);
+    expect(xlink.getAttributeNS(ns, "href")).toBeFalsy();
 
   });
 

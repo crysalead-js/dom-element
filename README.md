@@ -15,12 +15,13 @@ domElement.attr(element, "class", "active"); // Setter
 domElement.attr(element, "class"); //Getter
 ```
 
-### removeAttr(element, name)
+### attrNS(element, ns, name, value)
 
-Removes an attribute.
+Gets/sets an attribute with a specific namespace.
 
 ```js
-domElement.removeAttr(element, "class");
+domElement.attrNS(element, "http://www.w3.org/1999/xlink", "href", "/url"); // Setter
+domElement.attrNS(element, "http://www.w3.org/1999/xlink", "href"); //Getter
 ```
 
 ### prop(element, name, value)

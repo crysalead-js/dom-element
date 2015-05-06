@@ -26,11 +26,25 @@ function attr(element, name, value) {
 }
 
 /**
- * Removes a DOM element attribute.
+ * Gets/Sets a DOM element attribute with a specified namespace.
  *
+ * @param  Object element A DOM element.
+ * @param  String name    The name of an attribute.
+ * @param  String value   The value of the attribute to set, `undefined` to remove it or none
+ *                        to get the current attribute value.
+ * @return String         The current/new attribute value or `undefined` when removed.
  */
-function removeAttr(element, name) {
-  return element.removeAttribute(name);
+
+function attrNS(element, ns, name, value) {
+  name = toCamelCase(name);
+  if (arguments.length === 3) {
+    return element.getAttributeNS(ns, name);
+  }
+  if (value === undefined) {
+    return element.removeAttributeNS(ns, name);
+  }
+  element.setAttributeNS(ns, name, value);
+  return value;
 }
 
 /**
@@ -253,7 +267,7 @@ function toggleClass(element, name) {
 
 module.exports = {
   attr: attr,
-  removeAttr: removeAttr,
+  attrNS: attrNS,
   prop: prop,
   css: css,
   type: type,
