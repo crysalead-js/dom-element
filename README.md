@@ -11,8 +11,8 @@ DOM element manipulation functions.
 Gets/sets an attribute.
 
 ```js
-domElement.atts(element, "class", "active"); // Setter
-domElement.atts(element, "class"); //Getter
+domElement.attr(element, "class", "active"); // Setter
+domElement.attr(element, "class"); //Getter
 ```
 
 ### removeAttr(element, name)
@@ -61,21 +61,13 @@ domElement.data(element, "cutom", "hello"); // Setter
 domElement.data(element, "cutom"); // Getter
 ```
 
-### type(element)
-
-Returns the type of an input or the node name of the element if the type is not set.
-
-```js
-domElement.type(element);
-```
-
 ### text(element, value)
 
 Gets/sets the text content.
 
 ```js
-domElement.data(element, "cutom", "hello"); // Setter
-domElement.data(element, "cutom"); // Getter
+domElement.text(element, "some text"); // Setter
+domElement.text(element); // Getter
 ```
 
 ### value(element, value)
@@ -83,8 +75,8 @@ domElement.data(element, "cutom"); // Getter
 Gets/sets the element value.
 
 ```js
-domElement.data(element, "cutom", "hello"); // Setter
-domElement.data(element, "cutom"); // Getter
+domElement.value(element, "some data"); // Setter
+domElement.value(element); // Getter
 ```
 
 ### hasClass(element, name)
@@ -118,3 +110,15 @@ Toggles a class.
 ```js
 domElement.toggleClass(element, name);
 ```
+
+### type(element)
+
+Returns the type of an input or the node name of the element if the type is not set.
+
+```js
+domElement.type(element);
+```
+
+## Acknowledgement
+
+The [component team](https://github.com/component) which provides a lot of solid working bases to plagiarize :-p.
