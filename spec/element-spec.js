@@ -1,9 +1,10 @@
 var jsdom = require("jsdom");
 var domify = require("component-domify");
-var domElement = require("..");
 
 global.document = jsdom.jsdom();
 global.window = global.document.parentWindow;
+
+var domElement = require("..");
 
 global.self = global.window;
 require("classlist-polyfill");
@@ -86,6 +87,20 @@ describe(".css()", function() {
 
     expect(span.style.display).toBe("none");
     expect(domElement.css(span, "display")).toBe("none");
+
+  });
+
+  it("removes a value", function() {
+
+    var span = domify('<span>Hello World</span>');
+
+    expect(domElement.css(span, "display", "none")).toBe("none");
+    domElement.css(span, "display", null);
+    expect(domElement.css(span, "display")).toBeFalsy();
+
+    expect(domElement.css(span, "display", "none")).toBe("none");
+    domElement.css(span, "display", undefined);
+    expect(domElement.css(span, "display")).toBeFalsy();
 
   });
 
