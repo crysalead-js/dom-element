@@ -1,12 +1,13 @@
 {
   "name": "dom-element",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "DOM element manipulation functions.",
   "repository": {
     "type": "git",
     "url": "http://github.com/crysalead-js/dom-element.git"
   },
   "dependencies": {
+    "input-value": "^1.0.0",
     "to-camel-case": "^0.2.1"
   },
   "devDependencies": {

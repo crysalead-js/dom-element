@@ -1,3 +1,4 @@
+var inputValue = require('input-value');
 var toCamelCase = require('to-camel-case');
 var hasRemovePropertyInStyle = "removeProperty" in document.createElement("a").style;
 /**
@@ -279,10 +280,10 @@ module.exports = {
   attrNS: attrNS,
   prop: prop,
   css: css,
-  type: type,
+  type: inputValue.type,
   data: data,
   text: text,
-  value: value,
+  value: inputValue,
   hasClass: hasClass,
   addClass: addClass,
   removeClass: removeClass,
