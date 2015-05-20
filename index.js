@@ -1,12 +1,13 @@
-var inputValue = require('input-value');
+var domElementValue = require('dom-element-value');
 var toCamelCase = require('to-camel-case');
 var hasRemovePropertyInStyle = "removeProperty" in document.createElement("a").style;
+
 /**
  * DOM element manipulation functions.
  */
 
 /**
- * Gets/Sets a DOM element attribute.
+ * Gets/Sets a DOM element attribute (accept dashed attribute).
  *
  * @param  Object element A DOM element.
  * @param  String name    The name of an attribute.
@@ -19,7 +20,7 @@ function attr(element, name, value) {
   if (arguments.length === 2) {
     return element.getAttribute(name);
   }
-  if (value === undefined) {
+  if (!value) {
     return element.removeAttribute(name);
   }
   element.setAttribute(name, value);
@@ -27,7 +28,7 @@ function attr(element, name, value) {
 }
 
 /**
- * Gets/Sets a DOM element attribute with a specified namespace.
+ * Gets/Sets a DOM element attribute with a specified namespace (accept dashed attribute).
  *
  * @param  Object element A DOM element.
  * @param  String name    The name of an attribute.
@@ -35,13 +36,12 @@ function attr(element, name, value) {
  *                        to get the current attribute value.
  * @return String         The current/new attribute value or `undefined` when removed.
  */
-
 function attrNS(element, ns, name, value) {
   name = toCamelCase(name);
   if (arguments.length === 3) {
     return element.getAttributeNS(ns, name);
   }
-  if (value === undefined) {
+  if (!value) {
     return element.removeAttributeNS(ns, name);
   }
   element.setAttributeNS(ns, name, value);

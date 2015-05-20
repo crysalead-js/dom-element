@@ -21,12 +21,22 @@ describe(".attr()", function() {
 
   });
 
-  it("removes an attribute using undefined as value", function() {
+  it("removes an attribute using `undefined` as value", function() {
 
     var link = domify('<a href="/url"></a>');
     expect(domElement.attr(link, "href")).toBe("/url");
 
     domElement.attr(link, "href", undefined);
+    expect(link.getAttribute("href")).toBeFalsy();
+
+  });
+
+  it("removes an attribute using `null` as value", function() {
+
+    var link = domify('<a href="/url"></a>');
+    expect(domElement.attr(link, "href")).toBe("/url");
+
+    domElement.attr(link, "href", null);
     expect(link.getAttribute("href")).toBeFalsy();
 
   });
@@ -46,7 +56,7 @@ describe(".attrNS()", function() {
 
   });
 
-  it("removes an attribute using undefined as value", function() {
+  it("removes an attribute using `undefined` as value", function() {
 
     var ns = "http://www.w3.org/1999/xlink";
     var xlink = domify("<img></img>");
@@ -55,6 +65,19 @@ describe(".attrNS()", function() {
     expect(domElement.attrNS(xlink, ns, "href")).toBe("/url");
 
     domElement.attrNS(xlink, ns, "href", undefined);
+    expect(xlink.getAttributeNS(ns, "href")).toBeFalsy();
+
+  });
+
+  it("removes an attribute using `null` as value", function() {
+
+    var ns = "http://www.w3.org/1999/xlink";
+    var xlink = domify("<img></img>");
+    xlink.setAttributeNS(ns, "href", "/url");
+
+    expect(domElement.attrNS(xlink, ns, "href")).toBe("/url");
+
+    domElement.attrNS(xlink, ns, "href", null);
     expect(xlink.getAttributeNS(ns, "href")).toBeFalsy();
 
   });
