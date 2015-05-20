@@ -102,27 +102,6 @@ function css(element) {
 }
 
 /**
- * Returns the type of a DOM element.
- *
- * @param  Object element A DOM element.
- * @return String         The DOM element type.
- */
-function type(element) {
-  var name = element.nodeName.toLowerCase();
-  if (name !== "input") {
-    if (name === "select" && element.multiple) {
-      return "select-multiple";
-    }
-    return name;
-  }
-  var type = element.getAttribute('type');
-  if (!type) {
-    return "text";
-  }
-  return type.toLowerCase();
-}
-
-/**
  * Gets/Sets a DOM element attribute.
  *
  * @param  Object element A DOM element.
@@ -152,85 +131,6 @@ function text(element, value) {
     return element[text];
   }
   return element[text] = value
-}
-
-/**
- * Gets/sets DOM element value.
- *
- * @param  Object element A DOM element
- * @param  Object value   The value to set or none to get the current value.
- * @return mixed          The new/current DOM element value.
- */
-function value(element, value) {
-  if (arguments.length === 1) {
-    return get(element);
-  }
-  return set(element, value);
-}
-
-/**
- * Gets DOM element value.
- *
- * @param  Object element A DOM element
- * @return mixed          The DOM element value
- */
-function get(element) {
-  var name = type(element);
-  switch (name) {
-    case "checkbox":
-    case "radio":
-      if (!element.checked) {
-        return false;
-      }
-      var value = element.getAttribute('value');
-      return value == null ? true : value;
-    case "select":
-    case "select-multiple":
-      var options = element.options;
-      var values = [];
-      for (var i = 0, len = options.length; i < len; i++) {
-        if (options[i].selected) {
-          values.push(options[i].value);
-        }
-      }
-      return name === "select-multiple" ? values : values[0];
-    default:
-      return element.value;
-  }
-}
-
-/**
- * Sets a DOM element value.
- *
- * @param  Object element A DOM element
- * @param  Object value   The value to set.
- * @return mixed          The new DOM element value.
- */
-function set(element, value) {
-  var name = type(element);
-  switch (name) {
-    case "checkbox":
-    case "radio":
-      return element.checked = value ? true : false;
-    case "select":
-    case "select-multiple":
-      var found;
-      var options = element.options;
-      var values = Array.isArray(value) ? value : [value];
-      for (var i = 0, leni = options.length; i < leni; i++) {
-        found = 0;
-        for (var j = 0, lenj = values.length; j < lenj; j++) {
-          found |= values[j] === options[i].value;
-        }
-        options[i].selected = (found === 1);
-      }
-      if (name === "select") {
-        return value;
-      }
-      return Array.isArray(value) ? value: [value];
-    default:
-      return element.value = value;
-  }
 }
 
 /**
@@ -280,10 +180,10 @@ module.exports = {
   attrNS: attrNS,
   prop: prop,
   css: css,
-  type: inputValue.type,
+  type: domElementValue.type,
   data: data,
   text: text,
-  value: inputValue,
+  value: domElementValue,
   hasClass: hasClass,
   addClass: addClass,
   removeClass: removeClass,
