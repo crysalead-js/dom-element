@@ -1,6 +1,6 @@
 var domElementValue = require('dom-element-value');
+var domElementCss = require('dom-element-css');
 var toCamelCase = require('to-camel-case');
-var hasRemovePropertyInStyle = "removeProperty" in document.createElement("a").style;
 
 /**
  * DOM element manipulation functions.
@@ -20,7 +20,7 @@ function attr(element, name, value) {
   if (arguments.length === 2) {
     return element.getAttribute(name);
   }
-  if (!value) {
+  if (value == null) {
     return element.removeAttribute(name);
   }
   element.setAttribute(name, value);
@@ -41,7 +41,7 @@ function attrNS(element, ns, name, value) {
   if (arguments.length === 3) {
     return element.getAttributeNS(ns, name);
   }
-  if (!value) {
+  if (value == null) {
     return element.removeAttributeNS(ns, name);
   }
   element.setAttributeNS(ns, name, value);
@@ -62,43 +62,6 @@ function prop(element, name, value){
     return element[name];
   }
   return element[name] = value;
-}
-
-/**
- * Gets/Sets a DOM element property.
- *
- * @param  Object element A DOM element.
- * @param  String name    The name of a property.
- * @param  String value   The value of the property to set, or none to get the current
- *                        property value.
- * @return String         The current/new property value.
- */
-function css(element) {
-  var name;
-  if (arguments.length === 3) {
-    name = toCamelCase((arguments[1] === 'float') ? 'cssFloat' : arguments[1]);
-    var value = arguments[2];
-    if (value) {
-      element.style[name] = value;
-      return value;
-    }
-    if (hasRemovePropertyInStyle) {
-      element.style.removeProperty(name);
-    } else {
-      element.style[name] = "";
-    }
-    return value;
-  }
-  if (typeof arguments[1] === "string") {
-    name = toCamelCase((arguments[1] === 'float') ? 'cssFloat' : arguments[1]);
-    return element.style[name];
-  }
-
-  var style = arguments[1];
-  for (name in style) {
-    css(element, name, style[name]);
-  }
-  return style;
 }
 
 /**
@@ -179,7 +142,7 @@ module.exports = {
   attr: attr,
   attrNS: attrNS,
   prop: prop,
-  css: css,
+  css: domElementCss,
   type: domElementValue.type,
   data: data,
   text: text,
